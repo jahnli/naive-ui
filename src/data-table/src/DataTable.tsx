@@ -11,7 +11,13 @@ import {
   onDeactivated
 } from 'vue'
 import { createId } from 'seemly'
-import { useConfig, useLocale, useTheme, useThemeClass } from '../../_mixins'
+import {
+  useConfig,
+  useLocale,
+  useRtl,
+  useTheme,
+  useThemeClass
+} from '../../_mixins'
 import { NBaseLoading } from '../../_internal'
 import { NPagination } from '../../pagination'
 import { createKey, resolveSlot, warnOnce } from '../../_utils'
@@ -67,8 +73,13 @@ export default defineComponent({
       })
     }
 
-    const { mergedBorderedRef, mergedClsPrefixRef, inlineThemeDisabled } =
-      useConfig(props)
+    const {
+      mergedBorderedRef,
+      mergedClsPrefixRef,
+      inlineThemeDisabled,
+      mergedRtlRef
+    } = useConfig(props)
+    const rtlEnabledRef = useRtl('DataTable', mergedRtlRef, mergedClsPrefixRef)
     const mergedBottomBorderedRef = computed(() => {
       const { bottomBordered } = props
       // do not add bottom bordered class if bordered is true
@@ -397,17 +408,26 @@ export default defineComponent({
       cssVars: inlineThemeDisabled ? undefined : cssVarsRef,
       themeClass: themeClassHandle?.themeClass,
       onRender: themeClassHandle?.onRender,
+      rtlEnabled: rtlEnabledRef,
       ...exposedMethods
     }
   },
   render () {
-    const { mergedClsPrefix, themeClass, onRender, $slots, spinProps } = this
+    const {
+      mergedClsPrefix,
+      themeClass,
+      onRender,
+      $slots,
+      spinProps,
+      rtlEnabled
+    } = this
     onRender?.()
     return (
       <div
         class={[
           `${mergedClsPrefix}-data-table`,
           themeClass,
+          rtlEnabled && `${mergedClsPrefix}-data-table--rtl`,
           {
             [`${mergedClsPrefix}-data-table--bordered`]: this.mergedBordered,
             [`${mergedClsPrefix}-data-table--bottom-bordered`]:
