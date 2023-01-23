@@ -6,7 +6,7 @@ import {
   PropType,
   Fragment
 } from 'vue'
-import { useConfig, useTheme, useThemeClass } from '../../_mixins'
+import { useConfig, useRtl, useTheme, useThemeClass } from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import type { ExtractPublicPropTypes } from '../../_utils'
 import { dividerLight } from '../styles'
@@ -29,7 +29,8 @@ export default defineComponent({
   name: 'Divider',
   props: dividerProps,
   setup (props) {
-    const { mergedClsPrefixRef, inlineThemeDisabled } = useConfig(props)
+    const { mergedClsPrefixRef, inlineThemeDisabled, mergedRtlRef } =
+      useConfig(props)
     const themeRef = useTheme(
       'Divider',
       '-divider',
@@ -38,6 +39,7 @@ export default defineComponent({
       props,
       mergedClsPrefixRef
     )
+    const rtlEnabledRef = useRtl('Divider', mergedRtlRef, mergedClsPrefixRef)
     const cssVarsRef = computed(() => {
       const {
         common: { cubicBezierEaseInOut },
@@ -57,7 +59,8 @@ export default defineComponent({
       mergedClsPrefix: mergedClsPrefixRef,
       cssVars: inlineThemeDisabled ? undefined : cssVarsRef,
       themeClass: themeClassHandle?.themeClass,
-      onRender: themeClassHandle?.onRender
+      onRender: themeClassHandle?.onRender,
+      rtlEnabled: rtlEnabledRef
     }
   },
   render () {
@@ -67,7 +70,8 @@ export default defineComponent({
       vertical,
       dashed,
       cssVars,
-      mergedClsPrefix
+      mergedClsPrefix,
+      rtlEnabled
     } = this
     this.onRender?.()
     return (
@@ -76,6 +80,7 @@ export default defineComponent({
         class={[
           `${mergedClsPrefix}-divider`,
           this.themeClass,
+          rtlEnabled && `${mergedClsPrefix}-divider--rtl`,
           {
             [`${mergedClsPrefix}-divider--vertical`]: vertical,
             [`${mergedClsPrefix}-divider--no-title`]: !$slots.default,

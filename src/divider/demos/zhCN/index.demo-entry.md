@@ -8,6 +8,7 @@
 basic.vue
 content.vue
 vertical.vue
+rtl-debug.vue
 ```
 
 ## API

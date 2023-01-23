@@ -30,7 +30,7 @@ export { dataTableDark } from './data-table/styles'
 export { datePickerDark } from './date-picker/styles'
 export { descriptionsDark } from './descriptions/styles'
 export { dialogDark } from './dialog/styles'
-export { dividerDark } from './divider/styles'
+export { dividerDark, dividerRtl as unstableDividerRtl } from './divider/styles'
 export { drawerDark, drawerRtl as unstableDrawerRtl } from './drawer/styles'
 export { dropdownDark } from './dropdown/styles'
 export {
