@@ -10,7 +10,7 @@ import {
 import type { PopoverProps } from '../../popover/src/Popover'
 import { TooltipInst } from '../../tooltip/src/Tooltip'
 import { NTooltip } from '../../tooltip'
-import { useConfig, useTheme } from '../../_mixins'
+import { useConfig, useRtl, useTheme } from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import type { ExtractPublicPropTypes } from '../../_utils'
 import { ellipsisLight } from '../styles'
@@ -42,7 +42,7 @@ export default defineComponent({
   inheritAttrs: false,
   props: ellipsisProps,
   setup (props, { slots, attrs }) {
-    const { mergedClsPrefixRef } = useConfig(props)
+    const { mergedClsPrefixRef, mergedRtlRef } = useConfig(props)
     const mergedTheme = useTheme(
       'Ellipsis',
       '-ellipsis',
@@ -51,6 +51,7 @@ export default defineComponent({
       props,
       mergedClsPrefixRef
     )
+    const rtlEnabledRef = useRtl('Ellipsis', mergedRtlRef, mergedClsPrefixRef)
     const triggerRef = ref<HTMLElement | null>(null)
     const triggerInnerRef = ref<HTMLElement | null>(null)
     const tooltipRef = ref<TooltipInst | null>(null)
@@ -115,6 +116,7 @@ export default defineComponent({
         {...mergeProps(attrs, {
           class: [
             `${mergedClsPrefixRef.value}-ellipsis`,
+            rtlEnabledRef?.value && `${mergedClsPrefixRef.value}-ellipsis--rtl`,
             props.lineClamp !== undefined
               ? createLineClampClass(mergedClsPrefixRef.value)
               : undefined,

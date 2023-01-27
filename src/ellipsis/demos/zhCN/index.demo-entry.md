@@ -13,6 +13,7 @@ expand-trigger.vue
 custom-tooltip.vue
 dynamic-debug.vue
 width-debug.vue
+rtl-debug.vue
 ```
 
 ## API

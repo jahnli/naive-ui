@@ -39,6 +39,7 @@ export {
 } from './dynamic-input/styles'
 export { dynamicTagsDark } from './dynamic-tags/styles'
 export { elementDark } from './element/styles'
+export { ellipsisRtl as unstableEllipsisRtl } from './ellipsis/styles'
 export { emptyDark } from './empty/styles'
 export { formDark } from './form/styles'
 export { gradientTextDark } from './gradient-text/styles'
