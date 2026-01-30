@@ -35,14 +35,12 @@ import {
 import { clickoutside } from 'vdirs'
 import { useIsMounted, useMergedState } from 'vooks'
 import {
-  cloneVNode,
   computed,
   defineComponent,
   h,
   nextTick,
   provide,
   ref,
-  Text,
   toRef,
   Transition,
   watch,
@@ -57,7 +55,7 @@ import {
   useTheme,
   useThemeClass
 } from '../../_mixins'
-import { call, createKey, getFirstSlotVNode, useAdjustedTo } from '../../_utils'
+import { call, createKey, useAdjustedTo } from '../../_utils'
 import { NButton } from '../../button'
 import { colorPickerLight } from '../styles'
 import AlphaSlider from './AlphaSlider'
@@ -720,37 +718,20 @@ export default defineComponent({
             default: () => [
               <VTarget>
                 {{
-                  default: () => {
-                    const { $slots } = this
-                    if ($slots.trigger) {
-                      const triggerSlotContent = getFirstSlotVNode(
-                        $slots,
-                        'trigger',
-                        { value: this.mergedValue }
-                      )
-                      if (triggerSlotContent) {
-                        let triggerVNode = cloneVNode(triggerSlotContent)
-                        triggerVNode
-                          = triggerVNode.type === Text
-                            ? h('span', [triggerVNode])
-                            : triggerVNode
-                        triggerVNode.props = {
-                          ...triggerVNode.props,
-                          onClick: this.handleTriggerClick
-                        }
-                        return triggerVNode
-                      }
-                    }
-                    return (
-                      <ColorPickerTrigger
-                        clsPrefix={mergedClsPrefix}
-                        value={this.mergedValue}
-                        hsla={this.hsla}
-                        disabled={this.mergedDisabled}
-                        onClick={this.handleTriggerClick}
-                      />
-                    )
-                  }
+                  default: () => (
+                    <div onClick={this.handleTriggerClick}>
+                      {this.$slots.trigger ? (
+                        this.$slots.trigger({ value: this.mergedValue })
+                      ) : (
+                        <ColorPickerTrigger
+                          clsPrefix={mergedClsPrefix}
+                          value={this.mergedValue}
+                          hsla={this.hsla}
+                          disabled={this.mergedDisabled}
+                        />
+                      )}
+                    </div>
+                  )
                 }}
               </VTarget>,
               <VFollower
