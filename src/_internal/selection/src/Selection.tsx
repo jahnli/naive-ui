@@ -37,6 +37,7 @@ import { NPopover } from '../../../popover'
 import { NTag } from '../../../tag'
 import Suffix from '../../suffix'
 import { internalSelectionLight } from '../styles'
+import { INTERNAL_SELECTION_OVERFLOW_SUFFIX } from './interface'
 import style from './styles/index.cssr'
 
 export interface InternalSelectionInst {
@@ -732,17 +733,23 @@ export default defineComponent({
             <div
               class={`${clsPrefix}-base-selection-tag-wrapper`}
               key="__counter__"
+              onMouseenter={this.handleMouseEnterCounter}
             >
-              <NTag
-                size={size}
-                ref="counterRef"
-                onMouseenter={this.handleMouseEnterCounter}
-                disabled={disabled}
-              >
-                {{
-                  default: () => `+${rest}`
-                }}
-              </NTag>
+              {renderTag ? (
+                renderTag({
+                  option: {
+                    value: INTERNAL_SELECTION_OVERFLOW_SUFFIX,
+                    label: `+${rest}`
+                  },
+                  handleClose: () => {}
+                })
+              ) : (
+                <NTag size={size} ref="counterRef" disabled={disabled}>
+                  {{
+                    default: () => `+${rest}`
+                  }}
+                </NTag>
+              )}
             </div>
           )
         }

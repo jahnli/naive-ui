@@ -52,7 +52,11 @@ import {
   withDirectives
 } from 'vue'
 import { VBinder, VFollower, VTarget } from 'vueuc'
-import { NBaseFocusDetector, NInternalSelection } from '../../_internal'
+import {
+  INTERNAL_SELECTION_OVERFLOW_SUFFIX,
+  NBaseFocusDetector,
+  NInternalSelection
+} from '../../_internal'
 import {
   useConfig,
   useFormItem,
@@ -717,6 +721,12 @@ export default defineComponent({
         handleClose: () => void
       }): VNodeChild {
         const { value } = option
+        if (value === INTERNAL_SELECTION_OVERFLOW_SUFFIX) {
+          return renderTag({
+            option: option as unknown as TreeSelectOption,
+            handleClose
+          })
+        }
         if (value !== undefined) {
           const treeOption = dataTreeMateRef.value.getNode(value)
           if (treeOption) {
