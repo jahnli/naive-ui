@@ -11,6 +11,8 @@
 
 ### Feats
 
+- `n-checkbox-group` 新增 `options`、`label-field`、`value-field` 属性，关闭 [#7505](https://github.com/tusen-ai/naive-ui/issues/7505)
+- `n-radio-group` 新增 `options`、`label-field`、`value-field` 属性，关闭 [#7505](https://github.com/tusen-ai/naive-ui/issues/7505)
 - `n-color-picker` 新增 `trigger` slot，关闭 [#7192](https://github.com/tusen-ai/naive-ui/issues/7192)
 - `n-select` `n-auto-complete` `n-mention` `n-popselect` `n-cascader` `n-pagination` 新增 `scrollbar-props` 属性
 - `n-config-provider` 新增组件级 `renderEmpty` 配置（`Cascader`、`DataTable`、`Select`、`Transfer`、`Tree`、`TreeSelect`）

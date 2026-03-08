@@ -11,6 +11,8 @@
 
 ### Feats
 
+- `n-checkbox-group` adds `options`, `label-field`, `value-field` props, closes [#7505](https://github.com/tusen-ai/naive-ui/issues/7505).
+- `n-radio-group` adds `options`, `label-field`, `value-field` props, closes [#7505](https://github.com/tusen-ai/naive-ui/issues/7505).
 - `n-color-picker` adds `trigger` slot, closes [#7192](https://github.com/tusen-ai/naive-ui/issues/7192).
 - `n-select`, `n-auto-complete`, `n-mention`, `n-popselect`, `n-cascader`, `n-pagination` add `scrollbar-props` prop.
 - `n-config-provider` adds component-level `renderEmpty` options (`Cascader`, `DataTable`, `Select`, `Transfer`, `Tree`, `TreeSelect`).
